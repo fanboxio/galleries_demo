@@ -25,10 +25,12 @@ class DatabaseSeeder extends Seeder
         $adminRole->givePermissionTo($adminPermission);
 
         // Create admin user with admin role assigned
-        $admin = User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@example.com',
-        ]);
+        $admin = User::factory()
+            ->password('admin')
+            ->create([
+                'name' => 'Admin',
+                'email' => 'admin@example.com',
+            ]);
         $admin->assignRole($adminRole);
 
         // Create non-admin users and assign user role to them

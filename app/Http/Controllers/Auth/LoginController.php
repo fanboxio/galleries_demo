@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -32,6 +33,6 @@ class LoginController extends Controller
     public function logout(): RedirectResponse
     {
         Auth::logout();
-        return redirect('/');
+        return redirect('/login');
     }
 }

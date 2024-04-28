@@ -2,10 +2,11 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/dashboard');
 });
 
 Route::middleware('guest')->group(function () {
@@ -14,4 +15,11 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'register']);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/logout', [LoginController::class, 'logout']);
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });

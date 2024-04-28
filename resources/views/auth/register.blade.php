@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galleries - Register</title>
-</head>
-<body>
+@extends('layouts.default')
+
+@section('title', 'Register')
+
+@section('content')
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <div>
+        <div class="space-y-2">
             <label for="name">Name:</label>
             <input type="text" name="name" id="name" value="{{ old('name') }}" autofocus>
             @error('name')
@@ -17,7 +14,7 @@
             @enderror
         </div>
 
-        <div>
+        <div class="space-y-2">
             <label for="email">Email:</label>
             <input type="text" name="email" id="email" value="{{ old('email') }}">
             @error('email')
@@ -25,7 +22,7 @@
             @enderror
         </div>
 
-        <div>
+        <div class="space-y-2">
             <label for="password">Password:</label>
             <input type="password" name="password" id="password">
             @error('password')
@@ -33,14 +30,14 @@
             @enderror
         </div>
 
-        <div>
+        <div class="space-y-2">
             <label for="password_confirmation">Confirm Password:</label>
             <input type="password" name="password_confirmation" id="password_confirmation">
         </div>
 
-        <div>
+        <div class="space-y-2">
             <button type="submit">Register</button>
         </div>
     </form>
-</body>
-</html>
+
+@endsection

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,4 +23,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/logout', [LoginController::class, 'logout']);
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::middleware(['permission:admin dashboard'])->resource('users', UsersController::class)->except(['index', 'show']);
 });

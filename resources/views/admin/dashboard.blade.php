@@ -1,5 +1,7 @@
 @extends('layouts.default')
 
+@section('title', 'Admin Dashboard')
+
 @section('content')
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
@@ -28,7 +30,7 @@
   </ul>
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
-      <p>Users Content</p>
+      @include('admin.users.index')
     </div>
     <div class="tab-pane fade" id="taxonomies" role="tabpanel" aria-labelledby="taxonomies-tab">
       <p>Taxonomies Content</p>

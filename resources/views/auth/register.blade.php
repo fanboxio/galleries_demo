@@ -6,7 +6,7 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <div class="space-y-2">
+        <div>
             <label for="name">Name:</label>
             <input type="text" name="name" id="name" value="{{ old('name') }}" autofocus>
             @error('name')
@@ -14,7 +14,7 @@
             @enderror
         </div>
 
-        <div class="space-y-2">
+        <div>
             <label for="email">Email:</label>
             <input type="text" name="email" id="email" value="{{ old('email') }}">
             @error('email')
@@ -22,7 +22,7 @@
             @enderror
         </div>
 
-        <div class="space-y-2">
+        <div>
             <label for="password">Password:</label>
             <input type="password" name="password" id="password">
             @error('password')
@@ -30,12 +30,12 @@
             @enderror
         </div>
 
-        <div class="space-y-2">
+        <div>
             <label for="password_confirmation">Confirm Password:</label>
             <input type="password" name="password_confirmation" id="password_confirmation">
         </div>
 
-        <div class="space-y-2">
+        <div>
             <button type="submit">Register</button>
         </div>
     </form>

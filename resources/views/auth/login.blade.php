@@ -9,7 +9,7 @@
 
         <div>
             <label for="email">Email:</label>
-            <input type="email" name="email" id="email" value="{{ old('email') }}" autofocus>
+            <input type="text" name="email" id="email" value="{{ old('email') }}" autofocus>
             @error('email')
                 <div>{{ $message }}</div>
             @enderror

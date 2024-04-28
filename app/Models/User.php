@@ -30,7 +30,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        'remember_token'
     ];
 
     /**
@@ -44,5 +44,17 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    protected static function booted(): void
+    {
+        static::retrieved(function (User $user) {
+            $user['admin'] = $user->hasPermissionTo('admin dashboard');
+        });
+
+        static::saving(function(User $user) {
+            unset($user->admin);
+        });
+
     }
 }

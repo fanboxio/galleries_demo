@@ -12,7 +12,8 @@ class DashboardController extends Controller
         /** @var User $user */
         $user = Auth::user();
         if ($user->hasPermissionTo('admin dashboard')) {
-            return view('admin.dashboard');
+            $users = User::all();
+            return view('admin.dashboard', compact('users'));
         }
 
         return view('user.dashboard');

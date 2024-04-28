@@ -24,6 +24,7 @@ class RegisterRequest extends FormRequest
                 Rule::unique('users', 'email')->ignore($this->user()),
             ],
             'password' => 'required|string|min:8|confirmed',
+            'admin' => 'sometimes|boolean'
         ];
     }
 }

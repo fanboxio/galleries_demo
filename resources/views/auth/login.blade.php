@@ -23,6 +23,11 @@
             @enderror
         </div>
 
+        <div class="my-2">
+            If you don't have an account yet, you can create one
+            <a href="{{ route('register') }}">here</a>.
+        </div>
+        
         <div>
             <button type="submit">Login</button>
         </div>

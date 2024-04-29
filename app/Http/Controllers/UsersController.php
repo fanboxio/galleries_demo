@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
@@ -66,8 +67,9 @@ class UsersController extends Controller
         return redirect()->route('dashboard')->with('success', 'User removed from the system successfully.');
     }
 
-    public function show(User $user)
+    public function profile()
     {
+        $user = Auth::user();
         return view('user.profile', compact('user'));   
     }
 }

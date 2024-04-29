@@ -8,6 +8,7 @@
         <a class="navbar-brand" href="#">Galleries Dashboard</a>
         <div class="navbar-nav ml-auto">
             <span class="navbar-text mx-3">{{ auth()->user()->name }}</span>
+            <a class="nav-link mx-3" href="{{ route('profile') }}">Profile</a>
             <form action="{{ route('logout') }}" method="post">
                 @csrf
                 <button type="submit" class="btn btn-outline-danger">Logout</button>

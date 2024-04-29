@@ -47,11 +47,12 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware(['permission:user dashboard'])->group(function () {
-        Route::resource('users', UsersController::class)->only('show');
 
         Route::resource('galleries', GalleryController::class)->only('show');
         
         Route::post('/galleries/{gallery}/like', [GalleryController::class, 'like'])->name('galleries.like');
         Route::post('/galleries/{gallery}/dislike', [GalleryController::class, 'dislike'])->name('galleries.dislike');
+
+        Route::get('/profile', [UsersController::class, 'profile'])->name('profile');
     });
 });

@@ -1,0 +1,1 @@
+@extends('admin.taxonomies.index', ['type' => 'tags'])

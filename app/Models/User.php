@@ -48,6 +48,8 @@ class User extends Authenticatable
 
     protected static function booted(): void
     {
+        parent::boot();
+
         static::retrieved(function (User $user) {
             $user['admin'] = $user->hasPermissionTo('admin dashboard');
         });

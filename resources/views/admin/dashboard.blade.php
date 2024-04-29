@@ -33,7 +33,24 @@
       @include('admin.users.index')
     </div>
     <div class="tab-pane fade" id="taxonomies" role="tabpanel" aria-labelledby="taxonomies-tab">
-      <p>Taxonomies Content</p>
+      <div class="container mt-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            @include('admin.taxonomies.tags.index')
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            @include('admin.taxonomies.categories.index')
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="tab-pane fade" id="galleries" role="tabpanel" aria-labelledby="galleries-tab">
       <p>Galleries Content</p>

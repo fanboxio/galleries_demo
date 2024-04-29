@@ -45,4 +45,8 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('galleries', GalleryController::class)->except(['index', 'show']);
     });
+
+    Route::middleware(['permission:user dashboard'])->group(function () {
+        Route::resource('users', UsersController::class)->only('show');
+    });
 });

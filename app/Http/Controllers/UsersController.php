@@ -65,4 +65,9 @@ class UsersController extends Controller
         $user->delete();
         return redirect()->route('dashboard')->with('success', 'User removed from the system successfully.');
     }
+
+    public function show(User $user)
+    {
+        return view('user.profile', compact('user'));   
+    }
 }

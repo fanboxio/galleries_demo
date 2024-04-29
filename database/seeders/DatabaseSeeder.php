@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\Gallery;
+use App\Models\Tag;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -36,5 +39,10 @@ class DatabaseSeeder extends Seeder
         // Create non-admin users and assign user role to them
         $users = User::factory(5)->create();
         $users->each(fn (User $user) => $user->assignRole($userRole));
+
+        $galleries = Gallery::factory(10)
+            ->withTags()
+            ->withCategories()
+            ->create();
     }
 }

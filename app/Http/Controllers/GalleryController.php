@@ -53,7 +53,7 @@ class GalleryController extends Controller
 
     public function show(Gallery $gallery)
     {
-        
+        return view('galleries.show', compact('gallery'));
     }
 
     public function edit(Gallery $gallery)
@@ -90,5 +90,29 @@ class GalleryController extends Controller
     {
         $gallery->delete();
         return redirect()->route('dashboard')->with('success', 'Gallery removed from the system successfully.');
+    }
+
+    public function like(Gallery $gallery)
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (!$user->hasLiked($gallery)) {
+            $user->like($gallery);
+        }
+
+        return back();
+    }
+
+    public function dislike(Gallery $gallery)
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (!$user->hasDisliked($gallery)) {
+            $user->dislike($gallery);
+        }
+
+        return back();
     }
 }

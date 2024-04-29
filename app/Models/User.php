@@ -3,7 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Reaction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -58,5 +61,45 @@ class User extends Authenticatable
             unset($user->admin);
         });
 
+    }
+
+    public function likedGalleries(): BelongsToMany
+    {
+        return $this->belongsToMany(Gallery::class, 'gallery_reactions')->wherePivot('reaction', Reaction::Like->value);
+    }
+
+    public function dislikedGalleries(): BelongsToMany
+    {
+        return $this->belongsToMany(Gallery::class, 'gallery_reactions')->wherePivot('reaction', Reaction::Dislike->value);
+    }
+
+    public function hasLiked(Gallery $gallery): bool
+    {
+        return $this->likedGalleries->contains($gallery);
+    }
+
+    public function hasDisliked(Gallery $gallery): bool
+    {
+        return $this->dislikedGalleries->contains($gallery);
+    }
+
+    public function like(Gallery $gallery): void
+    {
+        if ($this->hasDisliked($gallery)) {
+            $this->dislikedGalleries()->updateExistingPivot($gallery, ['reaction' => Reaction::Like->value]);
+            return;
+        }
+
+        $this->likedGalleries()->attach($gallery, ['reaction' => Reaction::Like->value]);
+    }
+
+    public function dislike(Gallery $gallery): void
+    {
+        if ($this->hasLiked($gallery)) {
+            $this->likedGalleries()->updateExistingPivot($gallery, ['reaction' => Reaction::Dislike->value]);
+            return;
+        }
+
+        $this->dislikedGalleries()->attach($gallery, ['reaction' => Reaction::Dislike->value]);
     }
 }

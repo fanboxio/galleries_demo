@@ -74,6 +74,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $gallery->name }}</h5>
                             <p class="card-text">{{ $gallery->description }}</p>
+                            <a href="{{ route('galleries.show', $gallery->id) }}" class="btn btn-sm btn-primary">View Gallery</a>
                         </div>
                         <div class="card-footer">
                             <div>

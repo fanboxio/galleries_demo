@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreGalleryRequest;
+use App\Jobs\SendGalleryReactionEmail;
 use App\Models\Category;
 use App\Models\Gallery;
 use App\Models\Tag;
@@ -99,6 +100,8 @@ class GalleryController extends Controller
 
         if (!$user->hasLiked($gallery)) {
             $user->like($gallery);
+
+            SendGalleryReactionEmail::dispatch($gallery, $user, 'like');
         }
 
         return back();
@@ -111,6 +114,8 @@ class GalleryController extends Controller
 
         if (!$user->hasDisliked($gallery)) {
             $user->dislike($gallery);
+
+            SendGalleryReactionEmail::dispatch($gallery, $user, 'dislike');
         }
 
         return back();

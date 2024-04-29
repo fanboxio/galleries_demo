@@ -25,7 +25,9 @@
                             <input type="text" class="form-control" id="name" name="name" required>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
                     </form>
                 </div>
             </div>

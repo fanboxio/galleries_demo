@@ -32,7 +32,7 @@
                 <form action="{{ route($type . '.destroy', $taxonomy->id) }}" method="post" class="d-inline">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this taxonomy?')">Delete</button>
                 </form>
             </td>
         </tr>

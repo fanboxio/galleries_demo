@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\TaxonomyController;
 use App\Http\Controllers\UsersController;
 use App\Models\Category;
@@ -41,5 +42,7 @@ Route::middleware('auth')->group(function () {
         Route::get('categories/{category}/edit', [TaxonomyController::class, 'edit'])->defaults('type', 'category')->name('categories.edit');
         Route::put('categories/{category}', [TaxonomyController::class, 'update'])->defaults('type', 'category')->name('categories.update');
         Route::delete('categories/{category}', [TaxonomyController::class, 'destroy'])->defaults('type', 'category')->name('categories.destroy');
+
+        Route::resource('galleries', GalleryController::class)->except(['index', 'show']);
     });
 });

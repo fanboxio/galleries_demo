@@ -53,7 +53,7 @@
         </div>
     </div>
     <div class="tab-pane fade" id="galleries" role="tabpanel" aria-labelledby="galleries-tab">
-      <p>Galleries Content</p>
+      @include('admin.galleries.index')
     </div>
   </div>
 </div>

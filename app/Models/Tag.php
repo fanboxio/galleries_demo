@@ -18,8 +18,8 @@ class Tag extends Model
         });
     }
 
-    public function taxonomies()
+    public function galleries()
     {
-        return $this->morphToMany(Taxonomy::class, 'taxonomizable');
+        return $this->morphToMany(Gallery::class, 'taxonomizable');
     }
 }

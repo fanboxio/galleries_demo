@@ -1,7 +1,7 @@
 <div class="container mt-3">
     <div class="row">
       <div class="col">
-        <h2>Users</h2>
+        <h2>List of all users</h2>
       </div>
       <div class="col text-end">
         <a href="{{ route('users.create') }}" class="btn btn-primary">Create</a>
@@ -33,7 +33,7 @@
               <form action="{{ route('users.destroy', $user->id) }}" method="post" class="d-inline">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
               </form>
             </td>
           </tr>

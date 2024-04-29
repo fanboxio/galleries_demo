@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaxonomyRequest;
-use App\Models\Taxonomy;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class TaxonomyController extends Controller
 {
@@ -19,7 +16,7 @@ class TaxonomyController extends Controller
     public function store(StoreTaxonomyRequest $request, string $type)
     {
         $this->setModelClass($type);
-        $this->modelClass::create($request->validated());
+        $model = $this->modelClass::create($request->validated());
 
         $type = ucfirst($type);
 

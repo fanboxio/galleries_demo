@@ -38,7 +38,7 @@ class Gallery extends Model implements HasMedia
             return $query;
         }
 
-        return $query->where('name', 'LIKE', $search . '%');
+        return $query->where('name', 'LIKE', "%$search%");
     }
     
     public function scopeForTag(Builder $query, ?int $tag): Builder

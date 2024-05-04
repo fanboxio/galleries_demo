@@ -20,7 +20,16 @@
     <div class="container mt-5">
         <div class="row mb-3">
             <div class="col-md-12">
-                <input type="text" class="form-control" id="searchInput" placeholder="Search galleries by name..." value="{{ request('search') }}">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="searchInput"
+                    oninput="handleSearchInput()"
+                    onfocus="moveCaretToEnd()"
+                    placeholder="Search galleries by name..."
+                    value="{{ request('search') }}"
+                    autofocus
+                >
             </div>
         </div>
 
@@ -81,7 +90,7 @@
                             <div>
                                 Tags:
                                 @foreach($gallery->tags as $tag)
-                                    <span class="badge bg-primary">{{ $tag->name }}</span>
+                                    <span class="badge bg-success">{{ $tag->name }}</span>
                                 @endforeach
                             </div>
                             <div>
@@ -98,17 +107,28 @@
     </div>
 
     <script>
-        const filterButton = document.getElementById('filterButton');
-        filterButton.addEventListener('click', function() {
-            const { current_page } = {!! json_encode($galleries) !!};
-            applyFilterAndPagination(current_page);
-        });
+        let timeoutId;
 
-        const applyFilterAndPagination = (page) => {
+        // Search with debouncing - trigger search 500ms after user's last input
+        const handleSearchInput = () => {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+            timeoutId = setTimeout(applySearchFilterAndPagination, 500);
+        };
+
+        const moveCaretToEnd = () => {
+            const searchInput = document.getElementById('searchInput');
+            const length = searchInput.value.length;
+            searchInput.setSelectionRange(length, length);
+        }
+
+        const applySearchFilterAndPagination = () => {
             let url = window.location.href.split('?')[0];
             const search = document.getElementById('searchInput').value;
             const tag = document.getElementById('tagFilter').value;
             const category = document.getElementById('categoryFilter').value;
+            const { current_page: page } = {!! json_encode($galleries) !!};
 
             if (search) {
                 url += '?search=' + search;
@@ -123,7 +143,11 @@
             url += (search || tag || category ? '&' : '?') + 'page=' + page;
 
             window.location.href = url;
-        }
+        };
+
+        const filterButton = document.getElementById('filterButton');
+        filterButton.addEventListener('click', applySearchFilterAndPagination);
+
     </script>
 </div>
 @endsection

@@ -23,8 +23,7 @@ class RegisterRequest extends FormRequest
                 'max:255',
                 Rule::unique('users', 'email')->ignore($this->user()),
             ],
-            'password' => 'required|string|min:8|confirmed',
-            'admin' => 'sometimes|boolean'
+            'password' => 'required|string|min:8|confirmed'
         ];
     }
 }

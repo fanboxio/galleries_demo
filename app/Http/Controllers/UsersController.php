@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,7 @@ class UsersController extends Controller
         return view('admin.users.create');
     }
 
-    public function store(RegisterRequest $request)
+    public function store(StoreUserRequest $request)
     {
         /** @var User $user */
         $user = User::create([
@@ -24,15 +25,14 @@ class UsersController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        if ($request->filled('admin')) {
-            $adminRole = Role::findByName('admin');
+        $admin = (bool) ($request->admin ?? false);
 
-            if ($request->admin && !$user->hasRole($adminRole)) {
-                $user->assignRole($adminRole);
-            } else if (!$request->admin && $user->hasRole($adminRole)) {
-                $user->removeRole($adminRole);
-            }
-        }
+        match ($admin) {
+            true => $role = Role::findByName('admin'),
+            false => $role = Role::findByName('user'),
+        };
+
+        $user->assignRole($role);
 
         return redirect()->route('dashboard')->with('success', 'User created successfully.');
     }
@@ -48,13 +48,25 @@ class UsersController extends Controller
             'name' => $request->name,
         ]);
 
-        if ($request->filled('admin')) {
+        if ($request->has('admin')) {
             $adminRole = Role::findByName('admin');
 
             if ($request->admin && !$user->hasRole($adminRole)) {
                 $user->assignRole($adminRole);
+
+                $userRole = Role::findByName('user');
+
+                if ($user->hasRole($userRole)) {
+                    $user->removeRole($userRole);
+                }
             } else if (!$request->admin && $user->hasRole($adminRole)) {
                 $user->removeRole($adminRole);
+
+                $userRole = Role::findByName('user');
+
+                if (!$user->hasRole($userRole)) {
+                    $user->assignRole($userRole);
+                }
             }
         }
 

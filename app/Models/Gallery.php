@@ -41,25 +41,25 @@ class Gallery extends Model implements HasMedia
         return $query->where('name', 'LIKE', "%$search%");
     }
     
-    public function scopeForTag(Builder $query, ?int $tag): Builder
+    public function scopeForTags(Builder $query, ?array $tags): Builder
     {
-        if (empty($tag)) {
+        if (empty($tags)) {
             return $query;
         }
 
-        return $query->whereHas('tags', function (Builder $query) use ($tag) {
-            $query->where('tags.id', $tag);
+        return $query->whereHas('tags', function (Builder $query) use ($tags) {
+            $query->whereIn('tags.id', $tags);
         });
     }
 
-    public function scopeForCategory(Builder $query, ?int $category): Builder
+    public function scopeForCategories(Builder $query, ?array $categories): Builder
     {
-        if (empty($category)) {
+        if (empty($categories)) {
             return $query;
         }
 
-        return $query->whereHas('categories', function (Builder $query) use ($category) {
-            $query->where('categories.id', $category);
+        return $query->whereHas('categories', function (Builder $query) use ($categories) {
+            $query->whereIn('categories.id', $categories);
         });
     }
 }

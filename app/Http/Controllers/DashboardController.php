@@ -25,8 +25,8 @@ class DashboardController extends Controller
         }
 
         $galleries = Gallery::forName($request->search)
-                            ->forTag($request->tag)
-                            ->forCategory($request->category)
+                            ->forTags($request->tags)
+                            ->forCategories($request->categories)
                             ->paginate(10);
         return view('user.dashboard', compact('tags', 'categories', 'galleries'));
     }

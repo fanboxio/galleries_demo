@@ -32,17 +32,26 @@ class GalleryFactory extends Factory
 
     public function withTags()
     {
-        return $this->has(
-            Tag::factory(2),
-            'tags',
-        );
+        return $this->afterCreating(function (Gallery $gallery) {
+            $tags = Tag::inRandomOrder()->take(rand(1, 3))->get();
+            $gallery->tags()->attach($tags);
+        });
     }
 
     public function withCategories()
     {
-        return $this->has(
-            Category::factory(2),
-            'categories',
-        );
+        return $this->afterCreating(function (Gallery $gallery) {
+            $categories = Category::inRandomOrder()->take(rand(1, 3))->get();
+            $gallery->categories()->attach($categories);
+        });
+    }
+
+    public function withImages()
+    {
+        return $this->afterCreating(function (Gallery $gallery) {
+            collect(range(1, rand(1, 3)))->each(function () use ($gallery) {
+                $gallery->addMediaFromUrl($this->faker->imageUrl())->toMediaCollection('images');
+            });
+        });
     }
 }

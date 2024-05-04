@@ -40,9 +40,13 @@ class DatabaseSeeder extends Seeder
         $users = User::factory(5)->create();
         $users->each(fn (User $user) => $user->assignRole($userRole));
 
-        $galleries = Gallery::factory(10)
+        Tag::factory(5)->create();
+        Category::factory(5)->create();
+
+        Gallery::factory(10)
             ->withTags()
             ->withCategories()
+            ->withImages()
             ->create();
     }
 }

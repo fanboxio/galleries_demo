@@ -17,7 +17,18 @@ class TagFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->domainWord()
+            'name' => $this->faker->unique()->randomElement([
+                'Nature',
+                'Portrait',
+                'Travel',
+                'Abstract',
+                'Street',
+                'Food',
+                'Fashion',
+                'Event',
+                'Black and White',
+                'Vintage'
+            ])
         ];
     }
 }

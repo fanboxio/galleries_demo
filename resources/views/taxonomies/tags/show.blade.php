@@ -1,0 +1,1 @@
+@extends('taxonomies.show', ['type' => 'tag'])

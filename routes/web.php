@@ -55,5 +55,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/galleries/{gallery}/dislike', [GalleryController::class, 'dislike'])->name('galleries.dislike');
 
         Route::get('/profile', [UsersController::class, 'profile'])->name('profile');
+
+        Route::get('tags/{slug}', [TaxonomyController::class, 'show'])->defaults('type', 'tag')->name('tags.overview');
+        Route::get('categories/{slug}', [TaxonomyController::class, 'show'])->defaults('type', 'category')->name('categories.overview');
     });
 });

@@ -64,14 +64,14 @@
                 <div class="col-md-6 mb-4">
                     <h4>Tags</h4>
                     @foreach ($gallery->tags as $tag)
-                    <span class="badge bg-primary me-1">{{ $tag->name }}</span>
+                        <a class="taxonomy-badge badge bg-success text-decoration-none" href="{{ route('tags.overview', ['slug' => $tag->slug ]) }}">{{ $tag->name }}</a>
                     @endforeach
                 </div>
 
                 <div class="col-md-6 mb-4">
                     <h4>Categories</h4>
                     @foreach ($gallery->categories as $category)
-                    <span class="badge bg-secondary me-1">{{ $category->name }}</span>
+                        <a class="taxonomy-badge badge bg-secondary text-decoration-none" href="{{ route('categories.overview', ['slug' => $category->slug ]) }}">{{ $category->name }}</a>
                     @endforeach
                 </div>
             </div>

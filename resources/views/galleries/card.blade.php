@@ -25,13 +25,13 @@
         <div>
             Tags:
             @foreach($gallery->tags as $tag)
-                <span class="badge bg-success">{{ $tag->name }}</span>
+                <a class="taxonomy-badge badge bg-success text-decoration-none" href="{{ route('tags.overview', ['slug' => $tag->slug ]) }}">{{ $tag->name }}</a>
             @endforeach
         </div>
         <div>
             Categories:
             @foreach($gallery->categories as $category)
-                <span class="badge bg-secondary">{{ $category->name }}</span>
+                <a class="taxonomy-badge badge bg-secondary text-decoration-none" href="{{ route('categories.overview', ['slug' => $category->slug ]) }}">{{ $category->name }}</a>
             @endforeach
         </div>
     </div>

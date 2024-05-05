@@ -13,7 +13,9 @@
                             @foreach($tags as $tag)
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="tag" value="{{ $tag->id }}" id="tag-{{ $tag->id }}">
-                                    <label class="form-check-label" for="tag-{{ $tag->id }}">{{ $tag->name }}</label>
+                                    <label class="form-check-label" for="tag-{{ $tag->id }}">
+                                        <a href="{{ route('tags.overview', ['slug' => $tag->slug ]) }}">{{ $tag->name }}</a>
+                                    </label>
                                 </div>
                             @endforeach
                         </div>
@@ -22,7 +24,9 @@
                             @foreach($categories as $category)
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="category" value="{{ $category->id }}" id="category-{{ $category->id }}">
-                                    <label class="form-check-label" for="category-{{ $category->id }}">{{ $category->name }}</label>
+                                    <label class="form-check-label" for="category-{{ $category->id }}">
+                                        <a href="{{ route('categories.overview', ['slug' => $category->slug ]) }}">{{ $category->name }}</a>
+                                    </label>
                                 </div>
                             @endforeach
                         </div>

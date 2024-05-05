@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaxonomyRequest;
+use App\Models\Gallery;
+use Illuminate\Support\Pluralizer;
 
 class TaxonomyController extends Controller
 {
@@ -51,6 +53,23 @@ class TaxonomyController extends Controller
         $type = ucfirst($type);
 
         return redirect()->route('dashboard', ['tab' => 'taxonomies'])->with('success', "$type removed from the system successfully.");
+    }
+
+    public function show(string $slug, string $type)
+    {
+        $this->setModelClass($type);
+        $taxonomy = $this->modelClass::forSlug($slug)->first();
+
+        // Accumulate all images from all taxonomy's galleries
+        $images = $taxonomy->galleries->flatMap(fn (Gallery $gallery) => $gallery->media);
+
+        /**
+         * Using built-in Laravel class to make plural word from taxonomy type.
+         * tag -> tags, category -> categories
+         */
+        $type = Pluralizer::plural($type);
+
+        return view("taxonomies.$type.show", compact('taxonomy', 'images'));
     }
 
     protected function setModelClass($type)

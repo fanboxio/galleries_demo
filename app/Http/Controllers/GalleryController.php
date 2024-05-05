@@ -49,7 +49,7 @@ class GalleryController extends Controller
             }
         }
 
-        return redirect()->route('dashboard')->with('success', 'Gallery created successfully.');
+        return redirect()->route('dashboard', ['tab' => 'galleries'])->with('success', 'Gallery created successfully.');
     }
 
     public function show(Gallery $gallery)
@@ -83,14 +83,14 @@ class GalleryController extends Controller
         $gallery->tags()->sync($request->tags);
         $gallery->categories()->sync($request->categories);
 
-        return redirect()->route('dashboard')->with('success', 'Gallery data updated successfully.');
+        return redirect()->route('dashboard', ['tab' => 'galleries'])->with('success', 'Gallery data updated successfully.');
     }
 
 
     public function destroy(Gallery $gallery)
     {
         $gallery->delete();
-        return redirect()->route('dashboard')->with('success', 'Gallery removed from the system successfully.');
+        return redirect()->route('dashboard', ['tab' => 'galleries'])->with('success', 'Gallery removed from the system successfully.');
     }
 
     public function like(Gallery $gallery)

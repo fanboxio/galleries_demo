@@ -34,7 +34,7 @@ class UsersController extends Controller
 
         $user->assignRole($role);
 
-        return redirect()->route('dashboard')->with('success', 'User created successfully.');
+        return redirect()->route('dashboard', ['tab' => 'users'])->with('success', 'User created successfully.');
     }
 
     public function edit(User $user)
@@ -70,13 +70,13 @@ class UsersController extends Controller
             }
         }
 
-        return redirect()->route('dashboard')->with('success', 'User data updated successfully.');
+        return redirect()->route('dashboard', ['tab' => 'users'])->with('success', 'User data updated successfully.');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('dashboard')->with('success', 'User removed from the system successfully.');
+        return redirect()->route('dashboard', ['tab' => 'users'])->with('success', 'User removed from the system successfully.');
     }
 
     public function profile()

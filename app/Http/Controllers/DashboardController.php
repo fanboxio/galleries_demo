@@ -21,7 +21,8 @@ class DashboardController extends Controller
         if ($user->hasPermissionTo('admin dashboard')) {
             $users = User::all();
             $galleries = Gallery::all();
-            return view('admin.dashboard', compact('users', 'tags', 'categories', 'galleries'));
+            $tab = $request->tab;
+            return view('admin.dashboard', compact('users', 'tags', 'categories', 'galleries', 'tab'));
         }
 
         $galleries = Gallery::forName($request->search)

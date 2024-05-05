@@ -8,6 +8,8 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
+    @include('navbar')
+
     @include('session_toast')
     
     @yield('content')

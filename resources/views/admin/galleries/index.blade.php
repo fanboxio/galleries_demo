@@ -19,7 +19,7 @@
                         <th>Creator</th>
                         <th>Tags</th>
                         <th>Categories</th>
-                        <th>Actions</th>
+                        <th style="width: 10%;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,7 +43,7 @@
                                 @endforeach
                             </ul>
                         </td>
-                        <td>
+                        <td style="width: 10%;">
                             <a href="{{ route('galleries.edit', $gallery->id) }}" class="btn btn-sm btn-primary">Edit</a>
                             <form action="{{ route('galleries.destroy', $gallery->id) }}" method="POST" class="d-inline">
                                 @csrf

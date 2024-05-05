@@ -20,7 +20,7 @@ class TaxonomyController extends Controller
 
         $type = ucfirst($type);
 
-        return redirect()->route('dashboard')->with('success', "$type created successfully.");
+        return redirect()->route('dashboard', ['tab' => 'taxonomies'])->with('success', "$type created successfully.");
     }
 
     public function edit(string $id, string $type)
@@ -39,7 +39,7 @@ class TaxonomyController extends Controller
 
         $type = ucfirst($type);
 
-        return redirect()->route('dashboard')->with('success', "$type updated successfully.");
+        return redirect()->route('dashboard', ['tab' => 'taxonomies'])->with('success', "$type updated successfully.");
     }
 
     public function destroy(string $id, string $type)
@@ -50,7 +50,7 @@ class TaxonomyController extends Controller
 
         $type = ucfirst($type);
 
-        return redirect()->route('dashboard')->with('success', "$type removed from the system successfully.");
+        return redirect()->route('dashboard', ['tab' => 'taxonomies'])->with('success', "$type removed from the system successfully.");
     }
 
     protected function setModelClass($type)

@@ -4,10 +4,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\TaxonomyController;
 use App\Http\Controllers\UsersController;
-use App\Models\Category;
-use App\Models\Tag;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -44,6 +43,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('categories/{category}', [TaxonomyController::class, 'destroy'])->defaults('type', 'category')->name('categories.destroy');
 
         Route::resource('galleries', GalleryController::class)->except(['index', 'show']);
+
+        Route::resource('images', ImageController::class)->only(['destroy'])->name('destroy', 'image.destroy');
     });
 
     Route::middleware(['permission:user dashboard'])->group(function () {

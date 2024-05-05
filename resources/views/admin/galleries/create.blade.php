@@ -36,13 +36,18 @@
                             @enderror
                         </div>
 
-                        <!-- Upload Images -->
+                        <!-- Upload multiple images -->
                         <div class="mb-3">
                             <label for="images" class="form-label">Upload Images</label>
                             <input type="file" class="form-control" id="images" name="images[]" multiple accept=".jpg,.jpeg,.png">
+                            
+                            <!-- Uploaded images preview -->
+                            <label class="form-label mt-3">Uploaded Images</label>
+                            <div class="row my-2" id="imagesPreviewContainer">
+                                <i class="mx-2">No Uploaded images yet.</i>
+                            </div>
                         </div>
 
-                        <!-- Tags -->
                         <div class="mb-3">
                             <label for="tags" class="form-label">Tags</label>
                             <select multiple class="form-select" id="tags" name="tags[]">
@@ -55,7 +60,6 @@
                             @enderror
                         </div>
 
-                        <!-- Categories -->
                         <div class="mb-3">
                             <label for="categories" class="form-label">Categories</label>
                             <select multiple class="form-select" id="categories" name="categories[]">
@@ -76,6 +80,8 @@
             </div>
         </div>
     </div>
+
+    @include('files')
 </div>
 
 @endsection

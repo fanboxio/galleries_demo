@@ -37,22 +37,35 @@
                             @enderror
                         </div>
 
-                        <!-- Upload Images -->
+                        <!-- Upload multiple images -->
                         <div class="mb-3">
                             <label for="images" class="form-label">Upload Images</label>
                             <input type="file" class="form-control" id="images" name="images[]" multiple accept=".jpg,.jpeg,.png">
-                            <label class="form-label mt-2">Existing Images</label>
+                            
+                            <!-- Uploaded images preview -->
+                            <label class="form-label mt-3">Uploaded Images</label>
+                            <div class="row my-2" id="imagesPreviewContainer">
+                                <i class="mx-2">No Uploaded images yet.</i>
+                            </div>
+
+                            <label class="form-label mt-3">Existing Gallery's Images</label>
                             <div class="row my-2">
-                                @foreach ($gallery->getMedia('images') as $media)
-                                    <div class="col-md-3 mb-3 text-center">
-                                        <img src="{{ $media->getUrl() }}" class="img-fluid" alt="Image">
-                                        <span class="mt-3">{{ $media->file_name }}</span>
+                                @foreach ($gallery->getMedia('images') as $image)
+                                    <div id="image-container-{{ $image->id }}" class="col-md-3 mb-3 text-center image-container">
+                                        <img src="{{ $image->getUrl() }}" class="img-fluid" alt="Image">
+                                        <span class="mt-3">{{ $image->file_name }}</span>
+                                        <button
+                                            type="submit"
+                                            class="image-remove-button"
+                                            onclick="deleteImage(event, {{ $image->id }})"
+                                        >
+                                            X
+                                        </button>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
 
-                        <!-- Tags -->
                         <div class="mb-3">
                             <label for="tags" class="form-label">Tags</label>
                             <select multiple class="form-select" id="tags" name="tags[]">
@@ -65,7 +78,6 @@
                             @enderror
                         </div>
 
-                        <!-- Categories -->
                         <div class="mb-3">
                             <label for="categories" class="form-label">Categories</label>
                             <select multiple class="form-select" id="categories" name="categories[]">
@@ -86,6 +98,35 @@
             </div>
         </div>
     </div>
+
+    @include('toast', ['toastMessage' => 'Image deleted successfully.'])
+
+    @include('files')
+
+    <script>
+        const deleteImage = async (event, imageId) => {
+            event.preventDefault();
+
+            if (confirm('Are you sure you want to remove this image from the gallery (and from the system completely)?')) {
+                const response = await fetch(`/images/${imageId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json'
+                    },
+                });
+                // If image is deleted successfully, remove it's container from the DOM and show toast message
+                if (response.ok) {
+                    // function from toast blade
+                    loadToast();
+
+                    document.getElementById(`image-container-${imageId}`).remove();
+                } else {
+                    console.error(`Failed to delete image with id ${imageId}`);
+                }
+            }
+        }
+    </script>
 </div>
 
 @endsection

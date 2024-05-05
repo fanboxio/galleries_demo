@@ -71,7 +71,7 @@
                                     <div class="carousel-inner">
                                         @foreach($gallery->getMedia('images') as $key => $image)
                                             <div class="carousel-item{{ $key === 0 ? ' active' : '' }}">
-                                                <img src="{{ $image->getUrl() }}" class="d-block w-100" alt="Gallery Image">
+                                                <img src="{{ $image->getUrl() }}" class="d-block w-100" style="max-height: 25vh;" alt="Gallery Image">
                                             </div>
                                         @endforeach
                                     </div>

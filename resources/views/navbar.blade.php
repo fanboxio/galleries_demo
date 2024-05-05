@@ -7,6 +7,11 @@
         Galleries App
       @endif
     </a>
+    @if (auth()->user() && !auth()->user()->admin)
+    <div class="navbar-nav me-auto">
+      <a class="nav-link" href="{{ route('galleries') }}">All Galleries</a>
+    </div>
+    @endif
     <div class="navbar-nav ml-auto">
         @if (auth()->user())
           <span class="navbar-text me-3">{{ auth()->user()->name }}</span>

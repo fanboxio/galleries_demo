@@ -8,8 +8,6 @@ use Illuminate\Support\Pluralizer;
 
 class TaxonomyController extends Controller
 {
-    protected $modelClass;
-
     public function create(string $type)
     {
         return view("admin.taxonomies.create", compact('type'));
@@ -70,15 +68,5 @@ class TaxonomyController extends Controller
         $type = Pluralizer::plural($type);
 
         return view("taxonomies.$type.show", compact('taxonomy', 'images'));
-    }
-
-    protected function setModelClass($type)
-    {
-        $this->modelClass = 'App\\Models\\' . ucfirst($type);
-    }
-
-    protected function findTaxonomyById($id)
-    {
-        return $this->modelClass::findOrFail($id);
     }
 }

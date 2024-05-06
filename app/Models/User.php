@@ -63,6 +63,11 @@ class User extends Authenticatable
 
     }
 
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class, 'creator_id');
+    }
+
     public function likedGalleries(): BelongsToMany
     {
         return $this->belongsToMany(Gallery::class, 'gallery_reactions')->wherePivot('reaction', Reaction::Like->value);

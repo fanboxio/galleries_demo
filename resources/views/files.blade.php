@@ -3,7 +3,7 @@
     const imagesPreviewContainer = document.getElementById('imagesPreviewContainer');
 
     uploadImagesInput.addEventListener('change', (event) => {
-        // Clear previous preview images
+        // Clear all previous preview images
         imagesPreviewContainer.innerHTML = '';
 
         /**

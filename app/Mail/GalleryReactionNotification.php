@@ -38,6 +38,10 @@ class GalleryReactionNotification extends Mailable
      */
     public function build()
     {
+        /**
+         * Use blade template to provide content for the email.
+         * For content, provide data about gallery, user and reaction (like/dislike).
+         */
         return $this->subject('New Reaction on Your Gallery')
                     ->markdown('emails.gallery_reaction_notification', [
                         'gallery' => $this->gallery,

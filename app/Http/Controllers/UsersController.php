@@ -27,6 +27,10 @@ class UsersController extends Controller
 
         $admin = (bool) ($request->admin ?? false);
 
+        /**
+         * Based on value of admin field provided through the request,
+         * decide which role to assign to new user
+         */
         match ($admin) {
             true => $role = Role::findByName('admin'),
             false => $role = Role::findByName('user'),
@@ -48,6 +52,13 @@ class UsersController extends Controller
             'name' => $request->name,
         ]);
 
+        /**
+         * In case 'admin' field is provided, decide which role
+         * to assign to user but just in case user doesn't already
+         * have that role. If user have the opposite role (e.g. needs to
+         * get admin role but already have user role and vice versa),
+         * remove that role after new role is assigned.
+         */
         if ($request->has('admin')) {
             $adminRole = Role::findByName('admin');
 

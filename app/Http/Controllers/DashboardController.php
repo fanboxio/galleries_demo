@@ -18,6 +18,12 @@ class DashboardController extends Controller
 
         /** @var User $user */
         $user = Auth::user();
+
+        /**
+         * Based on user's permissions, make a decision which dashboard
+         * to show to user. Show admin dashboard to user only if users
+         * posses 'admin dashboard' permission. Otherwise, show user dashboard.
+         */
         if ($user->hasPermissionTo('admin dashboard')) {
             $users = User::all();
             $galleries = Gallery::all();
@@ -25,6 +31,8 @@ class DashboardController extends Controller
             return view('admin.dashboard', compact('users', 'tags', 'categories', 'galleries', 'tab'));
         }
 
+
+        // Apply galleries search (by name) and filtering by taxonomies
         $galleries = Gallery::forName($request->search)
                             ->forTags($request->tags)
                             ->forCategories($request->categories)

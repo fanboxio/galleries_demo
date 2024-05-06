@@ -39,6 +39,10 @@ class SendGalleryReactionEmail implements ShouldQueue
      */
     public function handle()
     {
+        /**
+         * Trigger sending of an email notification to creator of gallery.
+         * Email notification is describing which user has liked or disliked creator's gallery.
+         */
         Mail::to($this->gallery->creator->email)
             ->send(
                 new GalleryReactionNotification($this->gallery, $this->user, $this->reaction)

@@ -26,6 +26,7 @@ class RegisterController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
+        // Assign default user role to each new user
         $userRole = Role::findByName('user');
         $user->assignRole($userRole);
 

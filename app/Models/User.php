@@ -53,10 +53,19 @@ class User extends Authenticatable
     {
         parent::boot();
 
+        /**
+         * Whenever instance of User model is retrieved from DB,
+         * attach 'admin' property which has bool type and it's
+         * calculated based on user having 'admin dashboard' permission.
+         */
         static::retrieved(function (User $user) {
             $user['admin'] = $user->hasPermissionTo('admin dashboard');
         });
 
+        /**
+         * Since 'admin' field is not part of User model and users DB table,
+         * we need to remove that field before each saving of user instance into DB
+         */
         static::saving(function(User $user) {
             unset($user->admin);
         });
@@ -88,6 +97,11 @@ class User extends Authenticatable
         return $this->dislikedGalleries->contains($gallery);
     }
 
+    /**
+     * Since there is unique constraint for gallery_reactions to have unique pair of gallery and user,
+     * before saving new like reaction we check if there is already a dislike reaction for same gallery and user pair.
+     * If there is already a dislike reaction, we just update that reaction to like.
+     */
     public function like(Gallery $gallery): void
     {
         if ($this->hasDisliked($gallery)) {
@@ -98,6 +112,11 @@ class User extends Authenticatable
         $this->likedGalleries()->attach($gallery, ['reaction' => Reaction::Like->value]);
     }
 
+    /**
+     * Since there is unique constraint for gallery_reactions to have unique pair of gallery and user,
+     * before saving new dislike reaction we check if there is already a like reaction for same gallery and user pair.
+     * If there is already a like reaction, we just update that reaction to dislike.
+     */
     public function dislike(Gallery $gallery): void
     {
         if ($this->hasLiked($gallery)) {

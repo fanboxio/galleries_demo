@@ -31,18 +31,26 @@ class GalleryController extends Controller
         $gallery->name = $request->name;
         $gallery->grid_size = $request->grid_size;
         $gallery->description = $request->description;
+
+        // Assign current user as the creator of gallery
         $gallery->creator()->associate(User::find(Auth::id()));
         
         $gallery->save();
 
+        // Attach provided tags if there are any provided
         if ($request->has('tags')) {;
             $gallery->tags()->attach($request->tags);
         }
 
+        // Attach provided categories if there are any provided
         if ($request->has('categories')) {
             $gallery->categories()->attach($request->categories);
         }
 
+        /**
+         * If there are any image uploaded, go through all uploaded images
+         * and attach each of them to the gallery through 'images' collection
+         */
         if ($request->has('images')) {
             foreach ($request->file('images') as $image) {
                 $gallery->addMedia($image)->toMediaCollection('images');
@@ -74,12 +82,17 @@ class GalleryController extends Controller
             'description' => $request->description,
         ]);
 
+        /**
+         * If there are any image uploaded, go through all uploaded images
+         * and attach each of them to the gallery through 'images' collection
+         */
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $gallery->addMedia($image)->toMediaCollection('images');
             }
         }
 
+        // Sync gallery's taxonomies with provided ones
         $gallery->tags()->sync($request->tags);
         $gallery->categories()->sync($request->categories);
 
@@ -98,6 +111,11 @@ class GalleryController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
+        /**
+         * If user has already put a like on this gallery, just skip.
+         * If not, record that like and trigger sending of an email
+         * to the creator about new like
+         */
         if (!$user->hasLiked($gallery)) {
             $user->like($gallery);
 
@@ -112,6 +130,11 @@ class GalleryController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
+        /**
+         * If user has already put a dislike on this gallery, just skip.
+         * If not, record that dislike and trigger sending of an email
+         * to the creator about new dislike
+         */
         if (!$user->hasDisliked($gallery)) {
             $user->dislike($gallery);
 

@@ -40,9 +40,16 @@ class DatabaseSeeder extends Seeder
         $users = User::factory(5)->create();
         $users->each(fn (User $user) => $user->assignRole($userRole));
 
+        // Create 5 of each taxonomies
         Tag::factory(5)->create();
         Category::factory(5)->create();
 
+        /**
+         * Create 10 Galleries with:
+         *  - 1-3 tags assigned
+         *  - 1-3 categories assigned
+         *  - 1-3 images assigned
+         */
         Gallery::factory(10)
             ->withTags()
             ->withCategories()

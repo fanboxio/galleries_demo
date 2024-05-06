@@ -11,6 +11,10 @@ class ImageController extends Controller
      */
     public function destroy(Media $image)
     {
+        /**
+         * Delete provided image where deletion of an image
+         * is going to detach that image from gallery automatically
+         */
         $image->delete();
         return response('');
     }

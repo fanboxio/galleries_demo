@@ -20,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        /**
+         * We need to manually trigger Bootstrap 5 styling
+         * for default paginator created by Laravel
+         */
         Paginator::useBootstrapFive();
     }
 }

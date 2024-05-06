@@ -68,11 +68,11 @@
     </div>
 
     <script>
-        // SEARCH
+        // ------------------  SEARCH ------------------
 
         let timeoutId;
 
-        // Search with debouncing - trigger search 500ms after user's last input
+        // Search with debouncing feature - trigger search 500ms after user's last input
         const handleSearchInput = () => {
             if (timeoutId) {
                 clearTimeout(timeoutId);
@@ -80,12 +80,27 @@
             timeoutId = setTimeout(applySearchFilterAndPagination, 500);
         };
 
+        /**
+         * Use this function to make autofocusing of search input complete -
+         * if input already has some text, it doesn't make sense to just focus it
+         * with the caret placed on the beginning of the input. So, on each focus
+         * of search input, this method will be called.
+         */
         const moveCaretToEnd = () => {
             const searchInput = document.getElementById('searchInput');
             const length = searchInput.value.length;
             searchInput.setSelectionRange(length, length);
         }
+ 
+        // ---------------------------------------------
 
+        /**
+         * Universal method to apply all types of filtering of galleries
+         *  - search by gallery name
+         *  - filter by tags
+         *  - filter by categories
+         *  - set page for proper pagination
+         */
         const applySearchFilterAndPagination = () => {
             let url = window.location.href.split('?')[0];
             const search = document.getElementById('searchInput').value;
@@ -108,7 +123,7 @@
             window.location.href = url;
         };
 
-        // FILTERING
+        // ------------------  FILTERING ------------------
 
         let selectedTags = {!! json_encode(request()->get('tags') ?? []) !!};
         let selectedCategories = {!! json_encode(request()->get('categories') ?? []) !!};
@@ -136,6 +151,7 @@
                 ? selectedCategories.push(categoryId)
                 : selectedCategories = selectedCategories.filter(id => id !== categoryId);
 
+        // ---------------------------------------------
     </script>
 </div>
 @endsection

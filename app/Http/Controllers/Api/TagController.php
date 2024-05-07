@@ -9,6 +9,8 @@ class TagController extends TaxonomyController
 {
     /**
      * Get all tags.
+     * 
+     * @operationId getAllTags
      */
     public function index(string $type)
     {

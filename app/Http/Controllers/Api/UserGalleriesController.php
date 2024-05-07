@@ -13,6 +13,8 @@ class UserGalleriesController extends Controller
 {
     /**
      * Get a list of galleries created by user.
+     * 
+     * @operationId getUserGalleries
      */
     public function index(User $user)
     {

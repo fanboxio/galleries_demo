@@ -9,6 +9,8 @@ class CategoryController extends TaxonomyController
 {
     /**
      * Get all categories.
+     * 
+     * @operationId getAllCategories
      */
     public function index(string $type)
     {

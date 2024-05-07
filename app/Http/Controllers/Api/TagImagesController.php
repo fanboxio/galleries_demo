@@ -9,6 +9,8 @@ class TagImagesController extends TaxonomyImagesController
 {
     /**
      * Get a list of all images from related galleries.
+     * 
+     * @operationId getTagImages
      */
     public function index(string $taxonomy, string $type)
     {

@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GalleryResource;
 use App\Models\User;
-use Illuminate\Http\Request;
 
+/**
+ * @tags User
+ */
 class UserGalleriesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Get a list of galleries created by user.
      */
     public function index(User $user)
     {

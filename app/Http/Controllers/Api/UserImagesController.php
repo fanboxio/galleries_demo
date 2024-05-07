@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\GalleryImageResource;
 use App\Models\Gallery;
 use App\Models\User;
-use Illuminate\Http\Request;
 
+/**
+ * @tags User
+ */
 class UserImagesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Get a list of images from galleries created by user.
      */
     public function index(User $user)
     {

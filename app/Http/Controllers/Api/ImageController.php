@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GalleryImageResource;
 use App\Models\Gallery;
-use Illuminate\Http\Request;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ImageController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Get all images.
+     * 
+     * @operationId getAllImages
      */
     public function index()
     {

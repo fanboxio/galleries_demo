@@ -7,10 +7,15 @@ use App\Http\Resources\GalleryImageResource;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
 
+/**
+ * @tags Gallery
+ */
 class GalleryImagesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Get a list of gallery images.
+     * 
+     * @operationId getAllGalleryImages
      */
     public function index(Gallery $gallery)
     {
